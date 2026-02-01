@@ -155,7 +155,7 @@ Pager* pager_open(const char* filename){
 
 //Gets page using pager
 void* get_page(Pager* pager, uint32_t page_num){
-    //Checks if TABLE_MAX_PAGES is greated then page_num if yes then return EXIT_FAILURE
+    //Checks if TABLE_MAX_PAGES is greater than page_num if yes then return EXIT_FAILURE
     if (page_num > TABLE_MAX_PAGES){
         printf("Tried to fetch page number out of bounds. %d > %d\n", page_num, TABLE_MAX_PAGES);
         exit(EXIT_FAILURE);
@@ -189,7 +189,7 @@ InputBuffer* new_input_buffer(){
     //Creates a new_input_buffer and allocates it in RAM
     InputBuffer* input_buffer = (InputBuffer*)malloc(sizeof(InputBuffer));
 
-    //Checks if malloc failed usually if malloc fails it returns NULL so were checking if it returned NULL if so it failed
+    //Checks if malloc failed usually if malloc fails it returns NULL so We're checking if it returned NULL if so it failed
     if (input_buffer == NULL){
       fprintf(stderr, "Error: malloc failed\n");
       exit(EXIT_FAILURE);
@@ -444,7 +444,7 @@ int main(int argc, char* argv[]){
                     printf("Unrecognized keyword at start of '%s'.\n", input_buffer->buffer);
                     continue;
                 case (PREPARE_NEGATIVE_ID):
-                     printf("ID must be postive.\n");
+                     printf("ID must be positive.\n");
                      continue;
             }
 
