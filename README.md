@@ -180,7 +180,7 @@ Each row contains:
 ## Roadmap / Future Improvements
 
 - [x] Add cursor abstraction for better table navigation
-- [ ] Implement B-Tree for faster lookups
+- [x] Implement B-Tree for faster lookups
 - [ ] Add UPDATE and DELETE operations
 - [ ] Support for WHERE clauses in SELECT
 - [ ] Multiple table support
