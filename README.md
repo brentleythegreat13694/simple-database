@@ -10,10 +10,15 @@ I built this database engine while learning C programming and low-level systems 
 
 - Create and manage database tables
 - Insert and select operations
-- File-based persistence (data saved to disk)
+- File-based persistence with fsync durability
 - Simple SQL-like command interface
-- Memory paging system
+- B-Tree indexing for efficient storage and retrieval
+- Memory paging system (4KB pages)
 - Row-based storage with serialization
+- Advisory file locking to prevent concurrent write corruption
+- Robust I/O with partial write handling and signal interrupts
+- Parent pointer tracking for B-tree navigation
+- Zero-fill on short reads for data integrity
 
 ## What I Learned
 
@@ -172,19 +177,35 @@ Each row contains:
 
 ### Limitations
 
-- Maximum 100 pages (approximately 1,400 rows depending on row size)
+- Maximum 100 pages
 - Fixed schema (cannot create custom tables)
-- No indexing (linear search only)
-- No transactions or concurrency support
+- Single-writer bottleneck (advisory file locking)
+- B-tree splitting incomplete (scales to ~13 rows before "Table full")
+- No transactions or WAL (write-ahead log)
+- No read-write locks (readers blocked during writes)
 
 ## Roadmap / Future Improvements
 
+### Completed
 - [x] Add cursor abstraction for better table navigation
 - [x] Implement B-Tree for faster lookups
+- [x] Add file locking and durability safeguards
+- [x] Implement internal node operations (find, insert, split)
+- [x] Add robust I/O with fsync and ERR_INTR handling
+- [x] Enforce page limits and file validation
+
+### In Progress / Planned
+- [ ] Fix B-tree split propagation (critical blocker)
+- [ ] Add crash recovery with dirty flag marker
+- [ ] Implement page CRC32 checksums
+- [ ] Add Write-Ahead Log (WAL) for durability
+- [ ] Implement read-write locks (readers don't block each other)
+- [ ] Add connection timeout handling
 - [ ] Add UPDATE and DELETE operations
 - [ ] Support for WHERE clauses in SELECT
 - [ ] Multiple table support
 - [ ] Dynamic schema creation
+- [ ] Client/server architecture for true concurrency
 
 ## Acknowledgments
 
